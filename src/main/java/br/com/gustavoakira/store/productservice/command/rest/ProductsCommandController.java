@@ -2,10 +2,10 @@ package br.com.gustavoakira.store.productservice.command.rest;
 
 import java.util.UUID;
 
+import javax.validation.Valid;
+
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.commandhandling.gateway.DefaultCommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,14 +21,8 @@ public class ProductsCommandController {
 	private CommandGateway commandGateway ;
 	
 	
-	
-	@GetMapping
-	public String getProduct() {
-		return "GET";
-	}
-	
 	@PostMapping
-	public String createProduct(@RequestBody CreateProductRestModel createProductRestModel) {
+	public String createProduct(@Valid @RequestBody CreateProductRestModel createProductRestModel) {
 		CreateProductCommand createProductCommand = CreateProductCommand.builder()
 				.price(createProductRestModel.getPrice())
 				.quantity(createProductRestModel.getQuantity())
