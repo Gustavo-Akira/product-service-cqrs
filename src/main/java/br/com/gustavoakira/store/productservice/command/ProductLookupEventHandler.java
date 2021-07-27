@@ -2,6 +2,7 @@ package br.com.gustavoakira.store.productservice.command;
 
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.eventhandling.ResetHandler;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -38,5 +39,10 @@ public class ProductLookupEventHandler {
 		}catch(IllegalArgumentException ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	@ResetHandler
+	public void reset() {
+		repository.deleteAll();
 	}
 }
